@@ -1,13 +1,17 @@
-# lein-noir
+# $project$
 
-FIXME: write description
+A website written in noir. 
 
 ## Usage
 
-FIXME: write
+```bash
+lein deps
+lein run
+```
 
 ## License
 
 Copyright (C) 2011 FIXME
 
 Distributed under the Eclipse Public License, the same as Clojure.
+
