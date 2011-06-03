@@ -11,9 +11,10 @@
   "Create and manage noir projects."
   {:help-arglists '([new])
    :subtasks [#'new]}
-  ([project]
+  ([]
      (println (help-for "noir")))
-  ([project subtask & args]
+  ([subtask & args]
      (case subtask
        "new"     (apply leiningen.noir/new args)
+       (println (help-for "noir"))
        )))

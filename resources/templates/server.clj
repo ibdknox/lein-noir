@@ -1,10 +1,11 @@
 (ns $project$.server
   (:require [noir.server :as server]))
 
-(server/load-views "src/$project$/views/")
+(server/load-views "src/$safeproject$/views/")
 
 (defn -main [& m]
-  (let [mode (or (first m) :dev)]
-    (server/start 8084 {:mode (keyword mode)
-                        :ns 'noir})))
+  (let [mode (keyword (or (first m) :dev))
+        port 8080]
+    (server/start port {:mode mode
+                        :ns '$project$})))
 

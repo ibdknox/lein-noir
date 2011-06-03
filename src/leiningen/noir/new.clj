@@ -28,9 +28,14 @@
 (defn get-dir [n]
   (get *dirs* n))
 
+(defn clean-proj-name [n]
+  (string/replace n #"-" "_"))
+
 (defn get-template [n]
-  (let [tmpl (slurp-resource (str "./resources/templates/" n))]
-    (string/replace tmpl #"\$project\$" *project*)))
+  (let [tmpl (slurp-resource (str "templates/" n))]
+    (-> tmpl
+      (string/replace #"\$project\$" *project*)
+      (string/replace #"\$safeproject\$" (clean-proj-name *project*)))))
 
 (defn mkdir [args]
   (.mkdirs (apply file *project-dir* args)))
@@ -52,17 +57,21 @@
   (->file (get-dir :views) "welcome.clj" (get-template "welcome.clj")))
 
 (defn create [proj-name]
-  (binding [*project* proj-name
-            *project-dir* (-> (System/getProperty "leiningen.original.pwd")
-                            (file proj-name)
-                            (.getAbsolutePath))
-            *dirs* {:src ["src" proj-name]
-                    :views ["src" proj-name "views"]
-                    :models ["src" proj-name "models"]
-                    :test ["test" proj-name]
-                    :css ["resources" "public" "css"]
-                    :js ["resources" "public" "js"]
-                    :img ["resources" "public" "img"]}]
-    (println "Creating a new noir project! " *project*)
-    (create-dirs)
-    (populate-dirs)))
+  (let [clean-name (clean-proj-name proj-name)]
+    (binding [*project* proj-name
+              *project-dir* (-> (System/getProperty "leiningen.original.pwd")
+                              (file proj-name)
+                              (.getAbsolutePath))
+              *dirs* {:src ["src" clean-name]
+                      :views ["src" clean-name "views"]
+                      :models ["src" clean-name "models"]
+                      :test ["test" clean-name]
+                      :css ["resources" "public" "css"]
+                      :js ["resources" "public" "js"]
+                      :img ["resources" "public" "img"]}]
+      (println "Creating noir project: " *project*)
+      (println "Creating new dirs at: " *project-dir*)
+      (create-dirs)
+      (println "Adding files...")
+      (populate-dirs)
+      (println "Project created!"))))
