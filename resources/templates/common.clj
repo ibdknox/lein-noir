@@ -1,7 +1,7 @@
 (ns $project$.views.common
-  (use noir.core
-       hiccup.core
-       hiccup.page-helpers))
+  (:use noir.core
+        hiccup.core
+        hiccup.page-helpers))
 
 (defpartial layout [& content]
             (html5
