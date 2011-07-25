@@ -5,7 +5,7 @@ A [leiningen](https://github.com/technomancy/leiningen) plugin to help create an
 ## Usage
 
 ```bash
-lein plugin install lein-noir 1.0.0
+lein plugin install lein-noir 1.1.0
 lein noir new my-website
 ```
 
