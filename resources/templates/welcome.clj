@@ -1,6 +1,6 @@
 (ns $project$.views.welcome
   (:require [$project$.views.common :as common]
-            [noir.content.pages :as pages])
+            [noir.content.getting-started])
   (:use [noir.core :only [defpage]]
         [hiccup.core :only [html]]))
 
