@@ -3,10 +3,10 @@
   (:use clojure.java.io))
 
 (declare *project-dir* *project* *dirs*)
-(def dir-keys [:css :js :img :views :models :test])
+(def dir-keys- [:css :js :img :views :models :test])
 
 ;;From the maginalia source: http://fogus.me/fun/marginalia/
-(defn slurp-resource
+(defn slurp-resource-
   [resource-name]
   (try
     (-> (.getContextClassLoader (Thread/currentThread))
@@ -25,39 +25,39 @@
           (catch java.lang.NullPointerException npe
             (println (str "    STILL could not locate resources at " resource-name ". Giving up!"))))))))
 
-(defn get-dir [n]
+(defn get-dir- [n]
   (get *dirs* n))
 
-(defn clean-proj-name [n]
+(defn clean-proj-name- [n]
   (string/replace n #"-" "_"))
 
-(defn get-template [n]
-  (let [tmpl (slurp-resource (str "templates/" n))]
+(defn get-template- [n]
+  (let [tmpl (slurp-resource- (str "templates/" n))]
     (-> tmpl
       (string/replace #"\$project\$" *project*)
-      (string/replace #"\$safeproject\$" (clean-proj-name *project*)))))
+      (string/replace #"\$safeproject\$" (clean-proj-name- *project*)))))
 
-(defn mkdir [args]
+(defn mkdir- [args]
   (.mkdirs (apply file *project-dir* args)))
 
-(defn ->file [path file-name content]
+(defn ->file- [path file-name content]
   (spit (apply file *project-dir* (conj path file-name)) content))
 
-(defn create-dirs []
-  (doseq [k dir-keys]
-    (mkdir (get-dir k))))
+(defn create-dirs- []
+  (doseq [k dir-keys-]
+    (mkdir- (get-dir- k))))
 
-(defn populate-dirs []
-  (->file [] "README.md" (get-template "README.md"))
-  (->file [] "project.clj" (get-template "project.clj"))
-  (->file [] ".gitignore" (get-template "gitignore"))
-  (->file (get-dir :css) "reset.css" (get-template "reset.css"))
-  (->file (get-dir :src) "server.clj" (get-template "server.clj"))
-  (->file (get-dir :views) "common.clj" (get-template "common.clj"))
-  (->file (get-dir :views) "welcome.clj" (get-template "welcome.clj")))
+(defn populate-dirs- []
+  (->file- [] "README.md" (get-template- "README.md"))
+  (->file- [] "project.clj" (get-template- "project.clj"))
+  (->file- [] ".gitignore" (get-template- "gitignore"))
+  (->file- (get-dir- :css) "reset.css" (get-template- "reset.css"))
+  (->file- (get-dir- :src) "server.clj" (get-template- "server.clj"))
+  (->file- (get-dir- :views) "common.clj" (get-template- "common.clj"))
+  (->file- (get-dir- :views) "welcome.clj" (get-template- "welcome.clj")))
 
 (defn create [proj-name]
-  (let [clean-name (clean-proj-name proj-name)]
+  (let [clean-name (clean-proj-name- proj-name)]
     (binding [*project* proj-name
               *project-dir* (-> (System/getProperty "leiningen.original.pwd")
                               (file proj-name)
@@ -71,7 +71,7 @@
                       :img ["resources" "public" "img"]}]
       (println "Creating noir project: " *project*)
       (println "Creating new dirs at: " *project-dir*)
-      (create-dirs)
+      (create-dirs-)
       (println "Adding files...")
-      (populate-dirs)
+      (populate-dirs-)
       (println "Project created!"))))
