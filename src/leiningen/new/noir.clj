@@ -8,7 +8,8 @@
   [name]
   (let [data {:name name
               :sanitized (sanitize name)}]
-    (->files name data
+    (println "Generating a lovely new Noir project named" (str name "..."))
+    (->files data
              ["project.clj" (render "project.clj" data)]
              [".gitignore" (render "gitignore" data)]
              ["README.md" (render "README.md" data)]
