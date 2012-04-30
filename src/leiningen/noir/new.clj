@@ -2,7 +2,9 @@
   (:require [clojure.string :as string])
   (:use clojure.java.io))
 
-(declare *project-dir* *project* *dirs*)
+(declare ^:dynamic *project-dir*
+         ^:dynamic *project*
+         ^:dynamic *dirs*)
 (def dir-keys [:css :js :img :views :models :test])
 
 ;;From the maginalia source: http://fogus.me/fun/marginalia/
