@@ -7,14 +7,13 @@
     (println "No project name given:\r\n~    lein noir new my-website")
     (nnew/create proj-name)))
 
-(defn noir
+(defn ^:no-project-needed noir
   "Create and manage noir projects."
   {:help-arglists '([new])
    :subtasks [#'new]}
-  ([]
+  ([project]
      (println (help-for "noir")))
-  ([subtask & args]
+  ([project subtask & args]
      (case subtask
        "new"     (apply leiningen.noir/new args)
-       (println (help-for "noir"))
-       )))
+       (println (help-for "noir")))))
