@@ -1,8 +1,7 @@
 (ns {{name}}.views.welcome
   (:require [{{name}}.views.common :as common]
-            [noir.content.pages :as pages])
-  (:use [noir.core :only [defpage]]
-        [hiccup.core :only [html]]))
+            [noir.content.getting-started])
+  (:use [noir.core :only [defpage]]))
 
 (defpage "/welcome" []
          (common/layout

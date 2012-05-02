@@ -4,10 +4,18 @@ A [leiningen](https://github.com/technomancy/leiningen) plugin to help create an
 
 ## Usage
 
-lein-noir includes a template for lein-newnew. To use it, you'll need to install that. `lein install plugin lein-newnew 0.1.1`.
+For lein 2 simply do:
+
+```
+lein new noir my-project-name
+```
+
+For lein 1.*:
+
+lein-noir includes a template for lein-newnew. To use it, you'll need to install [lein-newnew](https://github.com/Raynes/lein-newnew)
 
 ```bash
-lein plugin install lein-noir 1.3.0
+lein plugin install noir/lein-template 1.3.0
 lein new noir my-website
 ```
 
