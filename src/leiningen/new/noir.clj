@@ -1,5 +1,5 @@
 (ns leiningen.new.noir
-  (:use leiningen.new.templates))
+  (:use [leiningen.new.templates :only [renderer name-to-path ->files]]))
 
 (def render (renderer "noir"))
 
@@ -7,8 +7,8 @@
   "A skeleton Noir project."
   [name]
   (let [data {:name name
-              :sanitized (sanitize name)}]
-    (println "Generating a lovely new Noir project named" (str name "..."))
+              :sanitized (name-to-path name)}]
+    (println "Generating a lovely New new Noir project named" (str name "..."))
     (->files data
              ["project.clj" (render "project.clj" data)]
              [".gitignore" (render "gitignore" data)]
